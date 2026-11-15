@@ -3,14 +3,9 @@ using System.Collections.Generic;
 using System.Text;
 namespace Abs;
 
-internal class SalesSystem
+internal class SalesSystem<T> where T: CashRegisterBase, new()
 {
-    private readonly CashRegisterBase cashRegister;
-
-    public SalesSystem(CashRegisterBase cashRegister)
-    {
-        this.cashRegister = cashRegister;
-    }
+    private readonly T cashRegister=new T();
 
     public void SendReceipt(Receipt receipt)
     {

@@ -3,13 +3,10 @@ using System.Collections.Generic;
 using System.Text;
 namespace Ifc;
 
-internal class SalesSystem
+internal class SalesSystem<T> where T:ICashRegister,new()
 {
-    private readonly ICashRegister cashRegister;
-    public SalesSystem(ICashRegister cashRegister)
-    {
-        this.cashRegister = cashRegister;
-    }
+    private readonly T cashRegister=new T();
+    
     public void SendReceipt(Receipt receipt)
     {
         cashRegister.createReceipt(receipt);
