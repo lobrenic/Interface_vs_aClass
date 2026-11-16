@@ -20,7 +20,7 @@ public class CashRegister1 : ICashRegister
         {
             throw new InvalidOperationException(
                  $"Kasa 1: proizvodjac nije vratio GUID, racun {receipt.Number} nije kreiran.");
-            //Pitanje: Da li da izbacim exception pa da SalesSys mora da primi informaciju o stanju guid?
+            //Pitanje: Da li da izbacim exception pa da SalesSys mora da primi informaciju o stanju guid
         }
         guid = temp.Value;
         Console.WriteLine($"Kasa 1: kreiran racun broj {receipt.Number}, GUID {guid}");
