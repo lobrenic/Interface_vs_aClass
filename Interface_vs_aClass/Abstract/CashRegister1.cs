@@ -6,32 +6,30 @@ namespace Abs;
 
 internal class CashRegister1:CashRegisterBase
 {
-    private Guid guid;
+    private Guid receiptGuid;
     public CashRegister1():base("Kasa 1") { }
 
-    private Guid? NotifyManufacturer()
+    public override bool UsesGuid => true;
+    public override Guid? GetGuid()
     {
         Console.WriteLine("Kasa 1: obavestavam proizvodjaca...");
-        return Guid.NewGuid();   
+        return Guid.NewGuid();
+    }
+
+    public override void SetGuid(Guid guid)
+    {
+        receiptGuid = guid;
     }
     public override void CreateReceipt(Receipt receipt)
     {
-        Guid? result = NotifyManufacturer();
-
-        if (result is null || result == Guid.Empty)
-        {
-            throw new InvalidOperationException(
-                $"Kasa 1: proizvodjac nije vratio GUID, racun {receipt.Number} nije kreiran.");
-        }
-
-        guid = result.Value;
+        
         PrintHeader(receipt);
-        Console.WriteLine("Kreiran racun");
+        Console.WriteLine($"Kreiran racun, GUID {receiptGuid}");
     }
 
     public override void SaveReceipt(Receipt receipt)
     {
-        Console.WriteLine($"Sacuvan racun, GUID {guid}");
+        Console.WriteLine($"Sacuvan racun, GUID {receiptGuid}");
     }
 }
 

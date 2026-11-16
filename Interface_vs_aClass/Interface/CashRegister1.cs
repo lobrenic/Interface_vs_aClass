@@ -1,33 +1,29 @@
-﻿using Abs;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 namespace Ifc;
 
-public class CashRegister1 : ICashRegister
+public class CashRegister1 : ICashRegister,IGuidRegister
 {
-    private Guid guid;
+    private Guid receiptGuid;
 
-    private Guid? notifyManufacturer()
+    public Guid getGuid()
     {
-        Console.WriteLine("Kasa 1: obavestavam proizvodjaca");
+        Console.WriteLine("Kasa 1: obavestavam proizvodjaca...");
         return Guid.NewGuid();
+    }
+
+    public void setGuid(Guid guid)
+    {
+        receiptGuid = guid;
     }
     public void createReceipt(Receipt receipt)
     {
-        Guid? temp=notifyManufacturer();
-        if (temp is null || temp==Guid.Empty)
-        {
-            throw new InvalidOperationException(
-                 $"Kasa 1: proizvodjac nije vratio GUID, racun {receipt.Number} nije kreiran.");
-            //Pitanje: Da li da izbacim exception pa da SalesSys mora da primi informaciju o stanju guid
-        }
-        guid = temp.Value;
-        Console.WriteLine($"Kasa 1: kreiran racun broj {receipt.Number}, GUID {guid}");
+        Console.WriteLine($"Kasa 1: kreiran racun broj {receipt.Number}, GUID {receiptGuid}");
     }
     public void saveReceipt(Receipt receipt)
     {
-        Console.WriteLine($"Kasa 1: sacuvan racun broj {receipt.Number}, GUID {guid}");
+        Console.WriteLine($"Kasa 1: sacuvan racun broj {receipt.Number}, GUID {receiptGuid}");
     }
 
 }
